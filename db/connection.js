@@ -1,17 +1,18 @@
-const mysql = require('mysql2')
+const mysql = require('mysql2/promise');
 
-const db = mysql.createConnection(
+const dbUser = process.env.DB_USER;
+const dbPW = process.env.DB_PASSWORD;
+
+const connection = mysql.createConnection(
   {
     host: 'localhost',
     // MySQL username,
-    user: 'root',
+    user: dbUser,
     // MySQL password
-    password: '',
+    password: dbPW,
     database: 'staff_db'
   },
-  console.log(`Connected to the classlist_db database.`)
+  console.log(`Connected to the staff_db database.`)
 );
-db.connect(function(err) {
-  if (err) throw err
-})
-module.exports = db
+
+module.exports = connection

@@ -1,4 +1,5 @@
-const connection = require('./connection.js')
+import connection from '../config/connection.js'
+
 class StaffDatabase {
   constructor(db){
     this.db = db
@@ -20,10 +21,11 @@ class StaffDatabase {
   }
   async addDepartment(department) {
     return await this.db.execute(
-      ''
+      'INSERT INTO department (name) VALUES (?)',
+      [department]
     )
   }
-  async findAllRoles() {
+  async addRoles() {
     return await this.db.execute(
       'SELECT * FROM role'
     )
@@ -39,4 +41,5 @@ class StaffDatabase {
     )
   }
 }
-module.exports = new StaffDatabase(connection)
+
+export default new StaffDatabase(connection)

@@ -1,11 +1,9 @@
-const inquirer = require('inquirer');
-const { default: ListPrompt } = require('inquirer/lib/prompts/list');
-const db = require('./db/staffDatabase') 
+import inquirer from 'inquirer';
+import { viewAllDepartments, viewAllRoles , addDepartment } from './src/staffActions.js';
 
 async function staff() {
   try {
-    const pickedChoice = await inquirer
-    .prompt([
+    const pickedChoice = await inquirer.prompt([
       {
         type: 'list',
         message: 'Pick one of the following',
@@ -23,21 +21,24 @@ async function staff() {
     ]);
     switch(pickedChoice.choices) {
       case 'view all departments':
-        viewAllDepartments();
+        await viewAllDepartments();
         break;
       case 'view all roles':
-        viewAllRoles();
+        await viewAllRoles();
         break;
       case 'view all employees':
-        viewAllEmployee();
+        await viewAllEmployee();
         break;
       case 'add a department':
-        addDepartment();
+        // TODO: add inquirer prompt here
+        await addDepartment();
         break;
       case 'add a role':
+        // TODO: add inquirer prompt here
         addRole();
         break;
       case 'add an employee':
+        // TODO: add inquirer prompt here
         addEmployee();
         break;
       case 'update an employee role':
@@ -45,27 +46,15 @@ async function staff() {
         break;
       default:
         console.log('pick a different option')
-        staff()
     }
+    staff()
   } catch (error) {
     if (error.isTtyError) {
-      console.log(error);
+      console.log('TTY Error: ' + error);
     } else {
-      console.log('something went wrong');
+      console.log(error);
     }
   }
-}
-
-const viewAllDepartments = () => {
-  console.log('made it here');
-  db.findAllDepartments()
-  .then((departments) => {
-    console.table(departments)
-  })
-}
-
-const viewAllRoles = () => {
-  
 }
 
 

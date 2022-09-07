@@ -1,9 +1,9 @@
-const mysql = require('mysql2/promise');
+import { createConnection } from 'mysql2/promise';
 
-const dbUser = process.env.DB_USER;
+const dbUser = process.env.DB_USERNAME;
 const dbPW = process.env.DB_PASSWORD;
 
-const connection = mysql.createConnection(
+const connection = await createConnection(
   {
     host: 'localhost',
     // MySQL username,
@@ -15,4 +15,4 @@ const connection = mysql.createConnection(
   console.log(`Connected to the staff_db database.`)
 );
 
-module.exports = connection
+export default connection

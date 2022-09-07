@@ -31,18 +31,19 @@ async function staff() {
         break;
       case 'add a department':
         // TODO: add inquirer prompt here
-        await addDepartment();
+        const newDepartment = await departmentPrompt();
+        await addDepartment(newDepartment);
         break;
       case 'add a role':
         // TODO: add inquirer prompt here
-        addRole();
+        await addRole();
         break;
       case 'add an employee':
         // TODO: add inquirer prompt here
-        addEmployee();
+        await addEmployee();
         break;
       case 'update an employee role':
-        updateEmployeeRole();
+        await updateEmployeeRole();
         break;
       default:
         console.log('pick a different option')
@@ -57,6 +58,19 @@ async function staff() {
   }
 }
 
-
+async function departmentPrompt() {
+  try {
+    const { newDepartment } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'newDepartment',
+        message: 'Enter a new department please.'
+      }
+    ]);
+    return newDepartment;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 staff()

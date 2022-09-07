@@ -25,17 +25,19 @@ class StaffDatabase {
       [department]
     )
   }
-  async addRoles() {
+  async addRoles(role) {
     return await this.db.execute(
-      'SELECT * FROM role'
+      'INSERT INTO role (name) VALUES (?)',
+      [role]
     )
   }
-  async findAllRoles() {
+  async addEmployee(employee) {
     return await this.db.execute(
-      'SELECT * FROM role'
+      'INSERT INTO employee (name) VALUES (?)',
+      [employee]
     )
   }
-  async findAllRoles() {
+  async updateEmployeeRole() {
     return await this.db.execute(
       'SELECT * FROM role'
     )

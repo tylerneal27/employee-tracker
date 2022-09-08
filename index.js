@@ -36,7 +36,10 @@ async function staff() {
         break;
       case 'add a role':
         // TODO: add inquirer prompt here
-        const newRole = await rolePrompt();
+        //const newRole = await rolePrompt();
+        // await addRole(newRole);
+        const depts = await viewAllDepartments();
+        const newRole = await rolePrompt(depts);
         await addRole(newRole);
         break;
       case 'add an employee':
@@ -75,15 +78,32 @@ async function departmentPrompt() {
   }
 
 }
-async function rolePrompt() {
+async function rolePrompt(departments) {
+
+  //console.table()
+  let departmentChoices = departments.map(({id,name}) => ({
+    name: name,value: id
+  }))
   try {
-    const { newRole } = await inquirer.prompt([
+    const  newRole  = await inquirer.prompt([
       {
         type: 'input',
-        name: 'newRole',
+        name: 'title',
         message: 'Enter a new role please.'
+      },
+      {
+        type: 'input',
+        name: 'salary',
+        message: 'enter this roles salary please.'
+      },
+      {
+        type: 'list',
+        name: 'department_id',
+        message: 'choose which department.',
+        choices: departmentChoices
       }
     ]);
+    console.log('Role', newRole);
     return newRole;
   } catch (error) {
     console.log(error);

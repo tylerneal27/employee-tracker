@@ -25,9 +25,9 @@ class StaffDatabase {
       [department]
     )
   }
-  async addRoles(role) {
+  async addRole(role) {
     return await this.db.execute(
-      'INSERT INTO role (name) VALUES (?)',
+      'INSERT INTO role (title) VALUES (?)',
       [role]
     )
   }

@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import { viewAllDepartments, viewAllRoles , addDepartment } from './src/staffActions.js';
+import { viewAllDepartments, viewAllRoles , viewAllEmployee , addDepartment , addRole , addEmployee } from './src/staffActions.js';
 
 async function staff() {
   try {
@@ -36,11 +36,13 @@ async function staff() {
         break;
       case 'add a role':
         // TODO: add inquirer prompt here
-        await addRole();
+        const newRole = await rolePrompt();
+        await addRole(newRole);
         break;
       case 'add an employee':
         // TODO: add inquirer prompt here
-        await addEmployee();
+        const newEmployee = await employeePrompt();
+        await addEmployee(newEmployee);
         break;
       case 'update an employee role':
         await updateEmployeeRole();
@@ -68,6 +70,36 @@ async function departmentPrompt() {
       }
     ]);
     return newDepartment;
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+async function rolePrompt() {
+  try {
+    const { newRole } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'newRole',
+        message: 'Enter a new role please.'
+      }
+    ]);
+    return newRole;
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+async function employeePrompt() {
+  try {
+    const { newEmployee } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'newEmployee',
+        message: 'Enter a new employee name please.'
+      }
+    ]);
+    return newEmployee;
   } catch (error) {
     console.log(error);
   }

@@ -27,19 +27,20 @@ class StaffDatabase {
   }
   async addRole(role) {
     return await this.db.execute(
-      'INSERT INTO role SET ?',
-      [role]
+      'INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)',
+      [role.title, role.salary, role.departmentId]
     )
   }
   async addEmployee(employee) {
     return await this.db.execute(
-      'INSERT INTO employee (name) VALUES (?)',
-      [employee]
+      'INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)',
+      [employee.firstName, employee.lastName, employee.roleId, employee.managerId]
     )
   }
-  async updateEmployeeRole() {
+  async updateEmployeeRole(employeeId, roleId) {
     return await this.db.execute(
-      'SELECT * FROM role'
+      'UPDATE employee SET role_id = ? WHERE id = ?',
+      [roleId, employeeId]
     )
   }
 }
